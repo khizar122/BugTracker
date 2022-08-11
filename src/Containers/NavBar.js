@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const NavBar = () => {
   const dispatch = useDispatch();
   const data_redux = useSelector((state) => state.LoginData);
-  console.log("Navbar", data_redux.Login.email);
+ 
   const [data_local] = useState(
     JSON.parse(localStorage.getItem("login"))
   );
@@ -31,9 +31,9 @@ const NavBar = () => {
     <div>
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          
             Bugs Tracker
-          </a>
+         
 
           <button
             className="navbar-toggler"

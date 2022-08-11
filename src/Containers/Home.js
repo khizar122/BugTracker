@@ -6,7 +6,7 @@ import Select from "react-select";
 import { useSelector } from "react-redux";
 const Home = () => {
   const data = useSelector((state) => state.LoginData);
-  console.log("Login", data.isLogin);
+  console.log("Login", data.Login.email);
   // const [isLogged] = useState(JSON.stringify(localStorage.getItem("login")));
   let [des, setDes] = useState("");
   const [priority, setPriority] = useState("");
@@ -27,8 +27,10 @@ const Home = () => {
   const handleProject = (selectedOption) => {
     setProject(selectedOption.id);
   };
+  const dataemail = useSelector((state) => state.LoginData);
   const handleSubmit = (e) => {
     e.preventDefault();
+   
     const min = 1;
     const max = 300;
     const rand = min + Math.random() * (max - min);
@@ -41,6 +43,7 @@ const Home = () => {
         assigned: assign,
         status: "pending",
         title: title,
+        created_by:dataemail.Login.email
       },
     ];
 

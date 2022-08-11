@@ -43,8 +43,8 @@ const Bugs = () => {
           ) {
             return <NavBar></NavBar>;
           }
-       return null;
-       })}
+          return null;
+        })}
 
         <center>
           <h2 style={{ padding: "10px" }}> All Bugs Reported</h2>
@@ -59,42 +59,92 @@ const Bugs = () => {
               <th scope="col">Assigned to</th>
               <th scope="col">Description</th>
               <th scope="col">Project Id #</th>
+              <th scope="col">Created by</th>
               <th scope="col">Status</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {data?.map((value, index) => (
-              <tr key={index}>
-                <td>{value.id}</td>
-                <td>{value.title}</td>
-                <td>{value.priority}</td>
-                <td>{value.assigned}</td>
-                <td>{value.Description}</td>
-                <td>{value.project}</td>
-                <td
-                  style={{ color: getColor(value.status), fontWeight: "bold" }}
-                >
-                  {value.status}
-                </td>
-                <td>
-                  <Link to={`/edit/${value.id}`}>
-                    <button
-                      className="btn btn-outline-primary"
-                      onClick={() => handleEdit(value.id)}
+            {data?.map((value, index) => {
+              console.log("Bugs", value.usertype)
+              if (loginData.Login.email === value.created_by ) {
+                
+                return (
+                  <tr key={index}>
+                    <td>{value.id}</td>
+                    <td>{value.title}</td>
+                    <td>{value.priority}</td>
+                    <td>{value.assigned}</td>
+                    <td>{value.Description}</td>
+                    <td>{value.project}</td>
+                    <td>{value.created_by}</td>
+                    <td
+                      style={{
+                        color: getColor(value.status),
+                        fontWeight: "bold",
+                      }}
                     >
-                      Edit
-                    </button>
-                  </Link>{" "}
-                  <button
-                    className="btn btn-outline-danger"
-                    onClick={() => handleDelete(value.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+                      {value.status}
+                    </td>
+                    <td>
+                      <Link to={`/edit/${value.id}`}>
+                        <button
+                          className="btn btn-outline-primary"
+                          onClick={() => handleEdit(value.id)}
+                        >
+                          Edit
+                        </button>
+                      </Link>{" "}
+                      <button
+                        className="btn btn-outline-danger"
+                        onClick={() => handleDelete(value.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              }
+              else {
+                return (
+                  <tr key={index}>
+                    <td>{value.id}</td>
+                    <td>{value.title}</td>
+                    <td>{value.priority}</td>
+                    <td>{value.assigned}</td>
+                    <td>{value.Description}</td>
+                    <td>{value.project}</td>
+                    <td>{value.created_by}</td>
+                    <td
+                      style={{
+                        color: getColor(value.status),
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {value.status}
+                    </td>
+                    <td>
+                      <Link to={`/edit/${value.id}`}>
+                        <button
+                          className="btn btn-outline-primary"
+                          onClick={() => handleEdit(value.id)}
+                        >
+                          Edit
+                        </button>
+                      </Link>{" "}
+                      <button
+                        className="btn btn-outline-danger"
+                        onClick={() => handleDelete(value.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+
+              }
+              
+            })}
           </tbody>
         </table>
       </div>

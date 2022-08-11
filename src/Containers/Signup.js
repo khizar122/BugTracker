@@ -16,6 +16,7 @@ const Signup = () => {
   const handlesubmit = () => {
     console.log(userType);
     dispatch(SignupAction({ name, email, password,userType }));
+    alert('Data submitted . . . ')
   };
   const handleusertype = (userType) => {
     setUserType(userType.value);

@@ -3,10 +3,28 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import NavBar from "./NavBar";
-
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
 const Projects = () => {
-  const [local_proj] = useState(JSON.parse(localStorage.getItem("project")));
+  const [local_proj,setLocal_proj] = useState(JSON.parse(localStorage.getItem("project")));
   const loginData = useSelector((state) => state.LoginData);
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleDelete = (id) => {
+    const db = local_proj.filter((data) => data.id !== id);
+    localStorage.setItem("data", JSON.stringify(db));
+    setLocal_proj(JSON.parse(localStorage.getItem("data")));
+  };
   if (loginData.isLogin === true) {
     return (
       <div>
@@ -37,17 +55,41 @@ const Projects = () => {
                       </Link>
                       <td>{value.value}</td>
                       <td>{value.created_by}</td>
-                      <Link to={``}>
+                      <td>
+                      <Link to={`/edit-project/${value.id}`}>
                         <button className="btn btn-outline-primary">
                           Edit
                         </button>
                         {"  "}
                       </Link>
                       <Link to={``}>
-                        <button className="btn btn-outline-danger">
+                        <button className="btn btn-outline-danger" onClick = {handleClickOpen}>
                           Delete
                         </button>
                       </Link>
+                     
+                      </td>
+                      <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                          >
+                            <DialogTitle id="alert-dialog-title">
+                              {"Delete ?"}
+                            </DialogTitle>
+                            <DialogContent>
+                              <DialogContentText id="alert-dialog-description">
+                                Are you sure to delete project.
+                              </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={handleClose}>No</Button>
+                              <Button onClick={()=>handleDelete(value.id)} autoFocus>
+                                Yes
+                              </Button>
+                            </DialogActions>
+                          </Dialog>
                     </tr>
                   );
                 }

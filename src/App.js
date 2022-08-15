@@ -9,6 +9,7 @@ import Bugs from "./Containers/Bugs";
 import CreProj from "./Containers/CreProj";
 import Edit from "./Containers/Edit";
 import Projects from "./Containers/Projects";
+import EditProject from "./Containers/EditProject";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/home" element={<Projects />}></Route>
           <Route path="/details/:id" element={<Bugs />}></Route>
           <Route path="/edit/:bugId" element={<Edit />}></Route>
+          <Route path="/edit-project/:projId" element={<EditProject />}></Route>
         </Routes>
       </Router>
     </div>

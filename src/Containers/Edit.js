@@ -9,11 +9,11 @@ const Edit = () => {
   const { bugId } = useParams();
   const [data] = useState(JSON.parse(localStorage.getItem("data")));
   const index = data.findIndex((object) => {
-    console.log(" id",typeof(bugId))
+  
     return (parseInt(object.id) === parseInt(bugId));
   });
 
-  console.log("index",index)
+  
   const [title, setTitle] = useState(data[index].title);
   const [desc, setDesc] = useState(data[index].Description);
   const [status, setStatus] = useState(data[index].status);
@@ -24,7 +24,7 @@ const Edit = () => {
       data[index].title = title;
       data[index].Description = desc;
       data[index].status = status;
-      console.log(data);
+    
     }
     localStorage.setItem("data", JSON.stringify(data));
   };

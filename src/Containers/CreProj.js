@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NavBar from "./NavBar";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import ToastContainer, { toast } from 'react-light-toast';
 const CreProj = () => {
   const data_redux = useSelector((state) => state.LoginData);
   const [proj, setProj] = useState("");
@@ -25,13 +26,13 @@ const CreProj = () => {
       if (existingData != null) {
         const result = existingData.concat(data);
         localStorage.setItem("project", JSON.stringify(result));
-        alert("Project Created Successfully");
+        toast.success('Project Created Successfully')
       } else {
         localStorage.setItem("project", JSON.stringify(data));
-        alert("Project Created Successfully");
+       toast.success('Project Created Successfully')
       }
     } else {
-      alert("Empty Text Fields");
+      toast.error('Empty Text Fields...');
     }
   };
   if (data_redux.isLogin === true) {
@@ -87,6 +88,14 @@ const CreProj = () => {
             </form>
           </div>
         </div>
+           
+        <ToastContainer options={{ 
+          reverse: true,
+          position: 'bottom-center'
+        }} /> 
+  
+
+   
       </div>
     );
   } else {

@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import Select from "react-select";
 import { useSelector } from "react-redux";
+import ToastContainer, { toast } from "react-light-toast";
 const Home = () => {
   const data = useSelector((state) => state.LoginData);
   console.log("Login", data.Login.email);
@@ -14,12 +15,10 @@ const Home = () => {
   const [title, setTitle] = useState("");
   const [project, setProject] = useState("");
   const [projdata] = useState(JSON.parse(localStorage.getItem("project")));
-  const [developerData] = useState(
-    JSON.parse(localStorage.getItem("login"))
-  );
+  const [developerData] = useState(JSON.parse(localStorage.getItem("login")));
   // setDeveloperData(developerData.filter((d) => d.usertype === "Developer"));
   let developername = developerData.filter((d) => d.usertype === "Developer");
-  
+
   const prioritydata = [
     { value: "High", label: "High" },
     { value: "Medium", label: "Medium" },
@@ -37,30 +36,41 @@ const Home = () => {
   const dataemail = useSelector((state) => state.LoginData);
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (
+      des !== "" &&
+      priority !== "" &&
+      project !== "" &&
+      assign !== "" &&
+      title !== ""
+    ) {
+      const min = 1;
+      const max = 300;
+      const rand = min + Math.random() * (max - min);
+      const data = [
+        {
+          id: Math.round(rand),
+          Description: des,
+          priority: priority,
+          project: project,
+          assigned: assign,
+          status: "pending",
+          title: title,
+          created_by: dataemail.Login.email,
+        },
+      ];
 
-    const min = 1;
-    const max = 300;
-    const rand = min + Math.random() * (max - min);
-    const data = [
-      {
-        id: Math.round(rand),
-        Description: des,
-        priority: priority,
-        project: project,
-        assigned: assign,
-        status: "pending",
-        title: title,
-        created_by: dataemail.Login.email,
-      },
-    ];
+      const existingData = JSON.parse(localStorage.getItem("data"));
 
-    const existingData = JSON.parse(localStorage.getItem("data"));
-
-    if (existingData != null) {
-      const result = existingData.concat(data);
-      localStorage.setItem("data", JSON.stringify(result));
+      if (existingData != null) {
+        const result = existingData.concat(data);
+        localStorage.setItem("data", JSON.stringify(result));
+        toast.success("Bug Added to Project Sucessfully");
+      } else {
+        localStorage.setItem("data", JSON.stringify(data));
+        toast.success("Bug Added to Project Sucessfully");
+      }
     } else {
-      localStorage.setItem("data", JSON.stringify(data));
+      toast.error("Error Some of textFields are Empty...");
     }
   };
 
@@ -150,6 +160,11 @@ const Home = () => {
             </form>
           </div>
         </div>
+        <ToastContainer
+          options={{
+            position: "bottom-right",
+          }}
+        />
       </div>
     );
   } else {

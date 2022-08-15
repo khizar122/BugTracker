@@ -12,17 +12,41 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [logindata] = useState(JSON.parse(localStorage.getItem("login")));
   const dispatch = useDispatch();
-
+  function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
   const handlesubmit = () => {
-    dispatch(LoginAction({ email, password }));
-    logindata?.map((val, index) => {
-      if (val.email === email && val.password === password) {
-        logindata[index].isLogged = true;
-        localStorage.setItem("login", JSON.stringify(logindata));
-        return navigate("/home");
+    if (email !== "" && password !== "") {
+      if (validateEmail(email)) {
+        if (password.length > 7) {
+          dispatch(LoginAction({ email, password }));
+          logindata?.map((val, index) => {
+            if (val.email === email && val.password === password) {
+              if (val.usertype === "Manager") {
+                logindata[index].isLogged = true;
+                localStorage.setItem("login", JSON.stringify(logindata));
+                return navigate("/home");
+              }
+              // else{
+              //   logindata[index].isLogged = true;
+              //   localStorage.setItem("login", JSON.stringify(logindata));
+              //   return navigate("/bugs");
+              // }
+            } else {
+              alert("Email or Password is wrong...");
+            }
+            return null;
+          });
+        } else {
+          alert("Password is less then 8");
+        }
+      } else {
+        alert("Email is not validate");
       }
-      return null;
-    });
+    } else {
+      alert("Form is Empty...");
+    }
   };
   return (
     <>
@@ -57,6 +81,7 @@ const Login = () => {
                               onChange={(e) => {
                                 setEmail(e.target.value);
                               }}
+                              required
                             />
                           </div>
                         </div>

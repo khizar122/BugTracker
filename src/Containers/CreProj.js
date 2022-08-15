@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import NavBar from "./NavBar";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
@@ -9,23 +8,30 @@ const CreProj = () => {
   const [Description, setDescription] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    const min = 1;
-    const max = 1000;
-    const rand = min + Math.random() * (max - min);
-    const data = [
-      {
-        id: Math.round(rand),
-        label: proj,
-        value: Description,
-      },
-    ];
-    const existingData = JSON.parse(localStorage.getItem("project"));
+    if (proj !== "" && Description !== "") {
+      const min = 1;
+      const max = 1000;
+      const rand = min + Math.random() * (max - min);
+      const data = [
+        {
+          id: Math.round(rand),
+          label: proj,
+          value: Description,
+          created_by: data_redux.Login.email,
+        },
+      ];
+      const existingData = JSON.parse(localStorage.getItem("project"));
 
-    if (existingData != null) {
-      const result = existingData.concat(data);
-      localStorage.setItem("project", JSON.stringify(result));
+      if (existingData != null) {
+        const result = existingData.concat(data);
+        localStorage.setItem("project", JSON.stringify(result));
+        alert("Project Created Successfully");
+      } else {
+        localStorage.setItem("project", JSON.stringify(data));
+        alert("Project Created Successfully");
+      }
     } else {
-      localStorage.setItem("project", JSON.stringify(data));
+      alert("Empty Text Fields");
     }
   };
   if (data_redux.isLogin === true) {

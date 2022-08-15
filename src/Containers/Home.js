@@ -14,6 +14,12 @@ const Home = () => {
   const [title, setTitle] = useState("");
   const [project, setProject] = useState("");
   const [projdata] = useState(JSON.parse(localStorage.getItem("project")));
+  const [developerData] = useState(
+    JSON.parse(localStorage.getItem("login"))
+  );
+  // setDeveloperData(developerData.filter((d) => d.usertype === "Developer"));
+  let developername = developerData.filter((d) => d.usertype === "Developer");
+  
   const prioritydata = [
     { value: "High", label: "High" },
     { value: "Medium", label: "Medium" },
@@ -24,13 +30,14 @@ const Home = () => {
     setPriority(selection.value);
   };
 
-  const handleProject = (selectedOption) => {
-    setProject(selectedOption.id);
+  const handleProject = (selected) => {
+    setProject(selected.id);
+    console.log("Project ID", project);
   };
   const dataemail = useSelector((state) => state.LoginData);
   const handleSubmit = (e) => {
     e.preventDefault();
-   
+
     const min = 1;
     const max = 300;
     const rand = min + Math.random() * (max - min);
@@ -43,7 +50,7 @@ const Home = () => {
         assigned: assign,
         status: "pending",
         title: title,
-        created_by:dataemail.Login.email
+        created_by: dataemail.Login.email,
       },
     ];
 
@@ -112,7 +119,7 @@ const Home = () => {
                   Priority <span className="text-danger">*</span>
                 </label>
                 <Select
-                  isClearable={false}
+                  isClearable={true}
                   className="react-select"
                   classNamePrefix="select"
                   options={prioritydata}
@@ -123,15 +130,16 @@ const Home = () => {
                 <label htmlFor="issueAssignInput">
                   Assigned To <span className="text-danger">*</span>
                 </label>
-                <input
-                  id="issueAssignInput"
-                  className="form-control"
-                  type="text"
-                  placeholder="Assiged To ...."
-                  value={assign}
-                  onChange={(e) => {
-                    setAssign(e.target.value);
+
+                <Select
+                  name="accounts"
+                  options={developername}
+                  onChange={(item) => {
+                    console.log(item.name);
+                    setAssign(item.email);
                   }}
+                  getOptionLabel={(option) => option.name}
+                  getOptionValue={(option) => option.Id}
                 />
               </div>
               <center>

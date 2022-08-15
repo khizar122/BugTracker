@@ -8,15 +8,32 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userType, setUserType] = useState("");
+  const [login] = useState(JSON.stringify(localStorage.getItem("login")));
+  console.log("login", login);
   const dispatch = useDispatch();
   const users = [
     { value: "Manager", label: "Manager" },
     { value: "Developer", label: "Developer" },
   ];
+  function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
   const handlesubmit = () => {
-    console.log(userType);
-    dispatch(SignupAction({ name, email, password,userType }));
-    alert('Data submitted . . . ')
+    if (name !== "" && email !== "" && password !== "" && userType !== "") {
+      if (validateEmail(email)) {
+        if (password.length > 7) {
+          dispatch(SignupAction({ name, email, password, userType }));
+          alert("Data submitted . . . ");
+        } else {
+          alert("Password Length is Less than 8");
+        }
+      } else {
+        alert("Validate your email ");
+      }
+    } else {
+      alert("Fill All TextFileds . . .");
+    }
   };
   const handleusertype = (userType) => {
     setUserType(userType.value);

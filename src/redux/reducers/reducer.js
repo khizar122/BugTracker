@@ -36,8 +36,12 @@ export const LogoutReducer = (state = initialState, { type, payload }) => {
 export const SignupReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ActionTypes.SIGNUP:
+      const min = 1;
+      const max = 300;
+      const rand = min + Math.random() * (max - min);
       const data = [
         {
+          Id:parseInt(rand),
           name: payload.name,
           email: payload.email,
           password: payload.password,

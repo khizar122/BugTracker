@@ -1,16 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 const DeveloperNavBar = () => {
   return (
-   
-                   
     <div>
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
-            Bugs Tracker
-          </a>
-
+          Bugs Tracker
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
@@ -18,8 +13,8 @@ const DeveloperNavBar = () => {
                   Home
                 </Link>
               </li>
-             
-              <li className="nav-item" >
+
+              <li className="nav-item">
                 <Link to={"/login"} className="nav-link ">
                   Logout
                 </Link>
@@ -29,9 +24,7 @@ const DeveloperNavBar = () => {
         </div>
       </nav>
     </div>
+  );
+};
 
-
-  )
-}
-
-export default DeveloperNavBar
+export default DeveloperNavBar;

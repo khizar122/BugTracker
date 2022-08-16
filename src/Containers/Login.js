@@ -5,36 +5,45 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { LoginAction } from "../redux/actions/actions";
 import { useNavigate } from "react-router-dom";
+
 const Login = () => {
-  // const data = useSelector((state) => state.LoginData);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [logindata] = useState(JSON.parse(localStorage.getItem("login")));
   const dispatch = useDispatch();
   function validateEmail(email) {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
   }
+  // function userExists(email, password) {
+  //   return logindata.some(function (el) {
+  //     return el.email === email && el.password === password;
+  //   });
+  // }
   const handlesubmit = () => {
     if (email !== "" && password !== "") {
       if (validateEmail(email)) {
         if (password.length > 7) {
-          dispatch(LoginAction({ email, password }));
           logindata?.map((val, index) => {
             if (val.email === email && val.password === password) {
+              dispatch(LoginAction({ email, password }));
+             
               if (val.usertype === "Manager") {
+             
                 logindata[index].isLogged = true;
                 localStorage.setItem("login", JSON.stringify(logindata));
-                return navigate("/home");
+                navigate("/home");
+              } else if (val.usertype === "Developer") {
+                
+                logindata[index].isLogged = true;
+                localStorage.setItem("login", JSON.stringify(logindata));
+
+                navigate("/rel-bugs");
+              } else {
+                alert("Wrong Email or Password...");
               }
-              // else{
-              //   logindata[index].isLogged = true;
-              //   localStorage.setItem("login", JSON.stringify(logindata));
-              //   return navigate("/bugs");
-              // }
-            } else {
-              alert("Email or Password is wrong...");
             }
             return null;
           });
@@ -129,6 +138,7 @@ const Login = () => {
             </div>
           </div>
         </div>
+      
       </section>
     </>
   );

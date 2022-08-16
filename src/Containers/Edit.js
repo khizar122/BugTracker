@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import Select from "react-select";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import ToastContainer, { toast } from "react-light-toast";
 const Edit = () => {
   const dataLogin = useSelector((state) => state.LoginData);
   const { bugId } = useParams();
@@ -24,9 +25,11 @@ const Edit = () => {
       data[index].title = title;
       data[index].Description = desc;
       data[index].status = status;
-    
+      localStorage.setItem("data", JSON.stringify(data));
+      toast.success("Updated Successfully",{        autoClose: true,   })
+      
     }
-    localStorage.setItem("data", JSON.stringify(data));
+    
   };
   const handleChange = (selection) => {
     setStatus(selection.value);
@@ -96,6 +99,11 @@ const Edit = () => {
             </form>
           </div>
         </div>
+        <ToastContainer
+          options={{
+            position: "bottom-right",
+          }}
+        />
       </div>
     );
   } else {

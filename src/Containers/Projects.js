@@ -9,21 +9,27 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
+
 const Projects = () => {
-  const [local_proj,setLocal_proj] = useState(JSON.parse(localStorage.getItem("project")));
+  const [local_proj, setLocal_proj] = useState(
+    JSON.parse(localStorage.getItem("project"))
+  );
   const loginData = useSelector((state) => state.LoginData);
   const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
+  const [bugId, setBugId] = useState(-1);
+  const handleClickOpen = (id) => {
+    setBugId(id);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
-  const handleDelete = (id) => {
-    const db = local_proj.filter((data) => data.id !== id);
-    localStorage.setItem("data", JSON.stringify(db));
-    setLocal_proj(JSON.parse(localStorage.getItem("data")));
+  const handleDelete = () => {
+    const db = local_proj.filter((data) => data.id !== bugId);
+    localStorage.setItem("project", JSON.stringify(db));
+    setLocal_proj(JSON.parse(localStorage.getItem("project")));
+    handleClose();
   };
   if (loginData.isLogin === true) {
     return (
@@ -56,40 +62,19 @@ const Projects = () => {
                       <td>{value.value}</td>
                       <td>{value.created_by}</td>
                       <td>
-                      <Link to={`/edit-project/${value.id}`}>
-                        <button className="btn btn-outline-primary">
-                          Edit
-                        </button>
+                        <Link to={`/edit-project/${value.id}`}>
+                          <button className="btn btn-outline-primary">
+                            Edit
+                          </button>
+                        </Link>
                         {"  "}
-                      </Link>
-                      <Link to={``}>
-                        <button className="btn btn-outline-danger" onClick = {handleClickOpen}>
+                        <button
+                          className="btn btn-outline-danger"
+                          onClick={() => handleClickOpen(value.id)}
+                        >
                           Delete
                         </button>
-                      </Link>
-                     
                       </td>
-                      <Dialog
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="alert-dialog-title"
-                            aria-describedby="alert-dialog-description"
-                          >
-                            <DialogTitle id="alert-dialog-title">
-                              {"Delete ?"}
-                            </DialogTitle>
-                            <DialogContent>
-                              <DialogContentText id="alert-dialog-description">
-                                Are you sure to delete project.
-                              </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                              <Button onClick={handleClose}>No</Button>
-                              <Button onClick={()=>handleDelete(value.id)} autoFocus>
-                                Yes
-                              </Button>
-                            </DialogActions>
-                          </Dialog>
                     </tr>
                   );
                 }
@@ -99,6 +84,25 @@ const Projects = () => {
             </tbody>
           </table>
         </div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Delete Project ?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are you sure to delete this project.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>No</Button>
+            <Button onClick={handleDelete}>Yes</Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   } else {

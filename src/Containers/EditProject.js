@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import NavBar from "./NavBar";
 import { Navigate } from "react-router-dom";
+import ToastContainer, { toast } from "react-light-toast";
 const EditProject = () => {
   const dataLogin = useSelector((state) => state.LoginData);
   const [data] = useState(JSON.parse(localStorage.getItem("project")));
@@ -20,8 +21,9 @@ const EditProject = () => {
     if (index !== -1) {
       data[index].label = title;
       data[index].value = desc;
+      localStorage.setItem("project", JSON.stringify(data));
+      toast.success("Sucessfully Updated...",{        autoClose: true,   });
     }
-    localStorage.setItem("project", JSON.stringify(data));
   };
   if (dataLogin.isLogin === true) {
     return (
@@ -63,16 +65,20 @@ const EditProject = () => {
               />
             </div>
             <center>
-                <button className="btn btn-primary" type="submit">
-                  Update
-                </button>
-              </center>
+              <button className="btn btn-primary" type="submit">
+                Update
+              </button>
+            </center>
           </form>
         </div>
+        <ToastContainer
+          options={{
+            position: "bottom-right",
+          }}
+        />
       </div>
     );
-  }
-  else{
+  } else {
     return <Navigate replace to="/login" />;
   }
 };

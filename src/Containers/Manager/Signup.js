@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { SignupAction } from "../redux/actions/actions";
+import { SignupAction } from "../../redux/actions/actions";
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

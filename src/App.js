@@ -1,22 +1,17 @@
-//import logo from './logo.svg';
-
-//import NavBar from './Containers/NavBar';
-import Login from "./Containers/Login";
+import Login from "./Containers/Manager/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Signup from "./Containers/Signup";
-import Home from "./Containers/Home";
-import Bugs from "./Containers/Bugs";
-import CreProj from "./Containers/CreProj";
-import Edit from "./Containers/Edit";
-import Projects from "./Containers/Projects";
-import EditProject from "./Containers/EditProject";
-import UserBugs from "./Containers/UserBugs";
+import Signup from "./Containers/Manager/Signup";
+import Home from "./Containers/Manager/Home";
+import Bugs from "./Containers/Manager/Bugs";
+import CreProj from "./Containers/Manager/CreProj";
+import Edit from "./Containers/Manager/Edit";
+import Projects from "./Containers/Manager/Projects";
+import EditProject from "./Containers/Manager/EditProject";
+import UserBugs from "./Containers/Developer/UserBugs";
 
 function App() {
   return (
     <div>
-      {/* <NavBar></NavBar> */}
-
       <Router>
         <Routes>
           <Route path="/login" element={<Login></Login>}></Route>

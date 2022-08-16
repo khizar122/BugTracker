@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import { useSelector } from "react-redux";
-import DeveloperNavBar from "./DeveloperNavBar";
+
 import { useParams } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -16,7 +16,6 @@ const Bugs = () => {
 
   const loginData = useSelector((state) => state.LoginData);
   const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
-  const [login_local_db] = useState(JSON.parse(localStorage.getItem("login")));
   const [open, setOpen] = useState(false);
   const [bugId, setBugId] = useState(-1);
 
@@ -45,7 +44,8 @@ const Bugs = () => {
   if (loginData.isLogin === true) {
     return (
       <div>
-        {login_local_db?.map((val, index) => {
+        <NavBar></NavBar>
+        {/* {login_local_db?.map((val, index) => {
           if (
             val.email === loginData.Login.email &&
             val.password === loginData.Login.password &&
@@ -60,7 +60,7 @@ const Bugs = () => {
             return <NavBar></NavBar>;
           }
           return null;
-        })}
+        })} */}
 
         <center>
           <h2 style={{ padding: "10px" }}> All Bugs Reported</h2>

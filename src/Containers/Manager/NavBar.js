@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Logout } from "../redux/actions/actions";
+import { Logout } from "../../redux/actions/actions";
 import { useSelector } from "react-redux";
 const NavBar = () => {
   const dispatch = useDispatch();
   const data_redux = useSelector((state) => state.LoginData);
- 
-  const [data_local] = useState(
-    JSON.parse(localStorage.getItem("login"))
-  );
+  const [data_local] = useState(JSON.parse(localStorage.getItem("login")));
   const editdata = () => {
     data_local.map((val, index) => {
       if (
@@ -31,10 +28,7 @@ const NavBar = () => {
     <div>
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid">
-          
-            Bugs Tracker
-         
-
+          Bugs Tracker
           <button
             className="navbar-toggler"
             type="button"

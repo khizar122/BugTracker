@@ -10,11 +10,9 @@ const Edit = () => {
   const { bugId } = useParams();
   const [data] = useState(JSON.parse(localStorage.getItem("data")));
   const index = data.findIndex((object) => {
-  
-    return (parseInt(object.id) === parseInt(bugId));
+    return parseInt(object.id) === parseInt(bugId);
   });
 
-  
   const [title, setTitle] = useState(data[index].title);
   const [desc, setDesc] = useState(data[index].Description);
   const [status, setStatus] = useState(data[index].status);
@@ -26,10 +24,8 @@ const Edit = () => {
       data[index].Description = desc;
       data[index].status = status;
       localStorage.setItem("data", JSON.stringify(data));
-      toast.success("Updated Successfully",{        autoClose: true,   })
-      
+      toast.success("Updated Successfully", { autoClose: true });
     }
-    
   };
   const handleChange = (selection) => {
     setStatus(selection.value);

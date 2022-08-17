@@ -29,7 +29,6 @@ const Login = () => {
               } else if (val.usertype === "Developer") {
                 logindata[index].isLogged = true;
                 localStorage.setItem("login", JSON.stringify(logindata));
-
                 navigate("/rel-bugs");
               } else {
                 alert("Wrong Email or Password...");

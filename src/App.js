@@ -8,6 +8,7 @@ import Edit from "./Containers/Manager/Edit";
 import Projects from "./Containers/Manager/Projects";
 import EditProject from "./Containers/Manager/EditProject";
 import UserBugs from "./Containers/Developer/UserBugs";
+// import EditDeveloperBug from "./Containers/Developer/EditDeveloperBug";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/details/:id" element={<Bugs />}></Route>
           <Route path="/edit/:bugId" element={<Edit />}></Route>
           <Route path="/edit-project/:projId" element={<EditProject />}></Route>
+          {/* <Route path="/edit-user-bug/:userbugId" element={<EditDeveloperBug></EditDeveloperBug>}></Route> */}
         </Routes>
       </Router>
     </div>

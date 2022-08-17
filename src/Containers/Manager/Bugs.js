@@ -45,25 +45,8 @@ const Bugs = () => {
     return (
       <div>
         <NavBar></NavBar>
-        {/* {login_local_db?.map((val, index) => {
-          if (
-            val.email === loginData.Login.email &&
-            val.password === loginData.Login.password &&
-            val.usertype === "Developer"
-          ) {
-            return <DeveloperNavBar></DeveloperNavBar>;
-          } else if (
-            val.email === loginData.Login.email &&
-            val.password === loginData.Login.password &&
-            val.usertype === "Manager"
-          ) {
-            return <NavBar></NavBar>;
-          }
-          return null;
-        })} */}
-
         <center>
-          <h2 style={{ padding: "10px" }}> All Bugs Reported</h2>
+          <h2 style={{ padding: "10px" }}>All Bugs Reported</h2>
         </center>
         <div className="col-auto">
           <div className="table-responsive">

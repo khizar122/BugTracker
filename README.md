@@ -1,1 +1,1 @@
-Bug Tracker app made using ReactJs and localstorage
+Bug Tracker app made using ReactJs,Redux and localstorage

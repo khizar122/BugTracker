@@ -30,9 +30,10 @@ const Login = () => {
                 logindata[index].isLogged = true;
                 localStorage.setItem("login", JSON.stringify(logindata));
                 navigate("/rel-bugs");
-              } else {
-                alert("Wrong Email or Password...");
-              }
+              } 
+//               else {
+//                 alert("Wrong Email or Password...");
+//               }
             }
             return null;
           });
